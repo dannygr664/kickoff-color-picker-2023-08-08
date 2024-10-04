@@ -1,7 +1,12 @@
-import ColorPicker from "../components/colorPicker";
+import PaletteForm from "../components/paletteForm";
 
 const Home = () => {
-  return <ColorPicker />;
+  return (
+    <>
+      <h1>Kickoff Color Picker</h1>
+      <PaletteForm />
+    </>
+  );
 };
 
 export default Home;

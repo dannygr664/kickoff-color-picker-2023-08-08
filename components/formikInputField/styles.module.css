@@ -1,0 +1,13 @@
+.inputFieldContainer {
+  display: flex;
+}
+
+.input {
+  width: 3em;
+}
+
+.errorMessage {
+  background-color: white;
+  font-size: 0.75em;
+  margin: 0;
+}

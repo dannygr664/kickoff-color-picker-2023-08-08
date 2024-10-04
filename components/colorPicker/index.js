@@ -1,62 +1,57 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+import FormikInputField from "../formikInputField";
 
 import s from "./styles.module.css";
 
-const ColorPicker = () => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
-  const [backgroundColor, setBackgroundColor] = useState("rgb(0,0,0");
+const ColorPicker = ({
+  formValues,
+  redFieldName,
+  greenFieldName,
+  blueFieldName,
+}) => {
+  const [backgroundColor, setBackgroundColor] = useState("rgb(0,0,0)");
 
   useEffect(() => {
     const validateAndSetBackgroundColor = () => {
+      const redValue = formValues[redFieldName];
+      const greenValue = formValues[greenFieldName];
+      const blueValue = formValues[blueFieldName];
       if (
-        red >= 0 &&
-        red <= 255 &&
-        green >= 0 &&
-        green <= 255 &&
-        blue >= 0 &&
-        blue <= 255
+        redValue >= 0 &&
+        redValue <= 255 &&
+        greenValue >= 0 &&
+        greenValue <= 255 &&
+        blueValue >= 0 &&
+        blueValue <= 255
       ) {
-        setBackgroundColor(`rgb(${red}, ${green}, ${blue})`);
+        setBackgroundColor(`rgb(${redValue}, ${greenValue}, ${blueValue})`);
       }
     };
 
     validateAndSetBackgroundColor();
-  }, [red, green, blue]);
+  }, [
+    formValues[redFieldName],
+    formValues[greenFieldName],
+    formValues[blueFieldName],
+  ]);
 
   return (
     <div className={s.colorPickerContainer} style={{ backgroundColor }}>
-      <input
-        className={s.input}
-        type="number"
-        min="0"
-        max="255"
-        onChange={(ev) => setRed(ev.target.value)}
-        value={red}
+      <FormikInputField
+        name={redFieldName}
+        value={formValues[redFieldName]}
         placeholder="R"
-        required
       />
-      <input
-        className={s.input}
-        type="number"
-        min="0"
-        max="255"
-        onChange={(ev) => setGreen(ev.target.value)}
-        value={green}
+      <FormikInputField
+        name={greenFieldName}
+        value={formValues[greenFieldName]}
         placeholder="G"
-        required
       />
-      <input
-        className={s.input}
-        type="number"
-        min="0"
-        max="255"
-        onChange={(ev) => setBlue(ev.target.value)}
-        value={blue}
+      <FormikInputField
+        name={blueFieldName}
+        value={formValues[blueFieldName]}
         placeholder="B"
-        required
       />
     </div>
   );
