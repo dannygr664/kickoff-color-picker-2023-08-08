@@ -5,6 +5,7 @@ import FormikInputField from "../formikInputField";
 import s from "./styles.module.css";
 
 const ColorPicker = ({
+  isEditing,
   formValues,
   redFieldName,
   greenFieldName,
@@ -38,21 +39,25 @@ const ColorPicker = ({
 
   return (
     <div className={s.colorPickerContainer} style={{ backgroundColor }}>
-      <FormikInputField
-        name={redFieldName}
-        value={formValues[redFieldName]}
-        placeholder="R"
-      />
-      <FormikInputField
-        name={greenFieldName}
-        value={formValues[greenFieldName]}
-        placeholder="G"
-      />
-      <FormikInputField
-        name={blueFieldName}
-        value={formValues[blueFieldName]}
-        placeholder="B"
-      />
+      {isEditing && (
+        <>
+          <FormikInputField
+            name={redFieldName}
+            value={formValues[redFieldName]}
+            placeholder="R"
+          />
+          <FormikInputField
+            name={greenFieldName}
+            value={formValues[greenFieldName]}
+            placeholder="G"
+          />
+          <FormikInputField
+            name={blueFieldName}
+            value={formValues[blueFieldName]}
+            placeholder="B"
+          />
+        </>
+      )}
     </div>
   );
 };

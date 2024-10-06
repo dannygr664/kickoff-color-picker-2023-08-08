@@ -7,7 +7,27 @@ import ColorPicker from "../colorPicker";
 
 import s from "./styles.module.css";
 
-const PaletteForm = ({ refreshPalettes }) => {
+const Palette = ({
+  refreshPalettes,
+  id,
+  red1,
+  green1,
+  blue1,
+  red2,
+  green2,
+  blue2,
+  red3,
+  green3,
+  blue3,
+  red4,
+  green4,
+  blue4,
+  red5,
+  green5,
+  blue5,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+
   const colorPickerPropNames = [
     {
       red: "red1",
@@ -61,12 +81,24 @@ const PaletteForm = ({ refreshPalettes }) => {
     blue5: colorComponentNumberSchema,
   });
 
-  const addPalette = async (values) => {
+  const updatePalette = async (values) => {
+    setIsEditing(false);
+
     if (!values) return;
 
-    const { status, data } = await axios.post("/api/palette", values);
+    const { status, data } = await axios.put("/api/palette", { id, ...values });
 
-    if (status == 201) {
+    if (status == 200) {
+      refreshPalettes();
+    }
+  };
+
+  const deletePalette = async () => {
+    const { status, data } = await axios.delete("/api/palette", {
+      data: { id },
+    });
+
+    if (status == 200) {
       refreshPalettes();
     }
   };
@@ -74,25 +106,25 @@ const PaletteForm = ({ refreshPalettes }) => {
   return (
     <Formik
       initialValues={{
-        red1: "0",
-        green1: "0",
-        blue1: "0",
-        red2: "0",
-        green2: "0",
-        blue2: "0",
-        red3: "0",
-        green3: "0",
-        blue3: "0",
-        red4: "0",
-        green4: "0",
-        blue4: "0",
-        red5: "0",
-        green5: "0",
-        blue5: "0",
+        red1: red1.toString(),
+        green1: green1.toString(),
+        blue1: blue1.toString(),
+        red2: red2.toString(),
+        green2: green2.toString(),
+        blue2: blue2.toString(),
+        red3: red3.toString(),
+        green3: green3.toString(),
+        blue3: blue3.toString(),
+        red4: red4.toString(),
+        green4: green4.toString(),
+        blue4: blue4.toString(),
+        red5: red5.toString(),
+        green5: green5.toString(),
+        blue5: blue5.toString(),
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        addPalette(values);
+        updatePalette(values);
       }}
     >
       {({ values }) => (
@@ -100,18 +132,28 @@ const PaletteForm = ({ refreshPalettes }) => {
           {colorPickerPropNames.map((propNames, index) => (
             <ColorPicker
               key={index}
-              isEditing="true"
+              isEditing={isEditing}
               formValues={values}
               redFieldName={propNames.red}
               greenFieldName={propNames.green}
               blueFieldName={propNames.blue}
             />
           ))}
-          <button type="submit">ADD</button>
+          {isEditing && <button type="submit">UPDATE</button>}
+          {!isEditing && (
+            <button type="button" onClick={() => setIsEditing(true)}>
+              EDIT
+            </button>
+          )}
+          {!isEditing && (
+            <button type="button" onClick={() => deletePalette()}>
+              DELETE
+            </button>
+          )}
         </Form>
       )}
     </Formik>
   );
 };
 
-export default PaletteForm;
+export default Palette;
