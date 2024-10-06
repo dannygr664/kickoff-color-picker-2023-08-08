@@ -31,31 +31,30 @@ const Home = () => {
       <h1>Kickoff Color Picker</h1>
       <PaletteForm refreshPalettes={refreshPalettes} />
       {palettes.map(
-        (
-          {
-            id,
-            red1,
-            green1,
-            blue1,
-            red2,
-            green2,
-            blue2,
-            red3,
-            green3,
-            blue3,
-            red4,
-            green4,
-            blue4,
-            red5,
-            green5,
-            blue5,
-          },
-          index
-        ) => (
+        ({
+          id,
+          name,
+          red1,
+          green1,
+          blue1,
+          red2,
+          green2,
+          blue2,
+          red3,
+          green3,
+          blue3,
+          red4,
+          green4,
+          blue4,
+          red5,
+          green5,
+          blue5,
+        }) => (
           <Palette
             key={id}
             refreshPalettes={refreshPalettes}
             id={id}
+            name={name}
             red1={red1}
             green1={green1}
             blue1={blue1}

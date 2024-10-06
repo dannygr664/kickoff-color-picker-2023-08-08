@@ -4,3 +4,13 @@
   margin: 50px auto;
   gap: 5px;
 }
+
+.formInputsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formColorPickersContainer {
+  display: flex;
+}

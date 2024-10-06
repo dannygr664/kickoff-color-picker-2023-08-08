@@ -1,6 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("palettes", function (table) {
     table.increments("id");
+    table.string("name");
 
     const NUM_COLORS = 5;
 
@@ -13,5 +14,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable("greetings");
+  return knex.schema.dropTable("palettes");
 };

@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import FormikNameField from "../formikNameField";
 import ColorPicker from "../colorPicker";
 
 import s from "./styles.module.css";
@@ -44,6 +45,9 @@ const PaletteForm = ({ refreshPalettes }) => {
     .required("Required");
 
   const validationSchema = Yup.object({
+    name: Yup.string()
+      .max(255, "Max character limit exceeded")
+      .required("Required"),
     red1: colorComponentNumberSchema,
     green1: colorComponentNumberSchema,
     blue1: colorComponentNumberSchema,
@@ -74,6 +78,7 @@ const PaletteForm = ({ refreshPalettes }) => {
   return (
     <Formik
       initialValues={{
+        name: "",
         red1: "0",
         green1: "0",
         blue1: "0",
@@ -97,16 +102,21 @@ const PaletteForm = ({ refreshPalettes }) => {
     >
       {({ values }) => (
         <Form className={s.formContainer}>
-          {colorPickerPropNames.map((propNames, index) => (
-            <ColorPicker
-              key={index}
-              isEditing="true"
-              formValues={values}
-              redFieldName={propNames.red}
-              greenFieldName={propNames.green}
-              blueFieldName={propNames.blue}
-            />
-          ))}
+          <div className={s.formInputsContainer}>
+            <FormikNameField name="name" />
+            <div className={s.formColorPickersContainer}>
+              {colorPickerPropNames.map((propNames, index) => (
+                <ColorPicker
+                  key={index}
+                  isEditing="true"
+                  formValues={values}
+                  redFieldName={propNames.red}
+                  greenFieldName={propNames.green}
+                  blueFieldName={propNames.blue}
+                />
+              ))}
+            </div>
+          </div>
           <button type="submit">ADD</button>
         </Form>
       )}

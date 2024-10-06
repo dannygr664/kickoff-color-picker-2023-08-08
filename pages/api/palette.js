@@ -9,6 +9,7 @@ export default async (req, res) => {
     await knex("palettes")
       .returning("id")
       .insert({
+        name: req.body.name,
         red1: req.body.red1,
         green1: req.body.green1,
         blue1: req.body.blue1,
@@ -35,6 +36,7 @@ export default async (req, res) => {
     await knex("palettes")
       .where({ id: req.body.id })
       .update({
+        name: req.body.name,
         red1: req.body.red1,
         green1: req.body.green1,
         blue1: req.body.blue1,

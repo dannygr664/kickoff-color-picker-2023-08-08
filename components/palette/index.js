@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import FormikNameField from "../formikNameField";
 import ColorPicker from "../colorPicker";
 
 import s from "./styles.module.css";
@@ -10,6 +11,7 @@ import s from "./styles.module.css";
 const Palette = ({
   refreshPalettes,
   id,
+  name,
   red1,
   green1,
   blue1,
@@ -64,6 +66,9 @@ const Palette = ({
     .required("Required");
 
   const validationSchema = Yup.object({
+    name: Yup.string()
+      .max(255, "Max character limit exceeded")
+      .required("Required"),
     red1: colorComponentNumberSchema,
     green1: colorComponentNumberSchema,
     blue1: colorComponentNumberSchema,
@@ -106,6 +111,7 @@ const Palette = ({
   return (
     <Formik
       initialValues={{
+        name: name,
         red1: red1.toString(),
         green1: green1.toString(),
         blue1: blue1.toString(),
@@ -129,16 +135,22 @@ const Palette = ({
     >
       {({ values }) => (
         <Form className={s.formContainer}>
-          {colorPickerPropNames.map((propNames, index) => (
-            <ColorPicker
-              key={index}
-              isEditing={isEditing}
-              formValues={values}
-              redFieldName={propNames.red}
-              greenFieldName={propNames.green}
-              blueFieldName={propNames.blue}
-            />
-          ))}
+          <div className={s.formInputsContainer}>
+            {isEditing && <FormikNameField name="name" />}
+            {!isEditing && <h3>{name}</h3>}
+            <div className={s.formColorPickersContainer}>
+              {colorPickerPropNames.map((propNames, index) => (
+                <ColorPicker
+                  key={index}
+                  isEditing={isEditing}
+                  formValues={values}
+                  redFieldName={propNames.red}
+                  greenFieldName={propNames.green}
+                  blueFieldName={propNames.blue}
+                />
+              ))}
+            </div>
+          </div>
           {isEditing && <button type="submit">UPDATE</button>}
           {!isEditing && (
             <button type="button" onClick={() => setIsEditing(true)}>
