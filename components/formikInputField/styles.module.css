@@ -4,15 +4,17 @@
 
 .input {
   width: 3em;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  box-sizing: border-box;
 }
 
 .label {
   background-color: white;
   width: 1em;
-}
-
-.errorMessage {
-  background-color: white;
   font-size: 0.75em;
-  margin: 0;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: center;
 }

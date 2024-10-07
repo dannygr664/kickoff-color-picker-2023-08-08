@@ -1,0 +1,14 @@
+.searchBar {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+}
+
+.input {
+  width: 90%;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

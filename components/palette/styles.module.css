@@ -1,16 +1,26 @@
 .formContainer {
   width: 100%;
   display: flex;
+  flex-direction: column;
   margin: 50px auto;
   gap: 5px;
 }
 
 .formInputsContainer {
-  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.formColorPickersAndButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  width: 100%;
 }
 
 .formColorPickersContainer {
   display: flex;
+  width: 90%;
+  gap: 5px;
 }

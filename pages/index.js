@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import PaletteForm from "../components/paletteForm";
 import Palette from "../components/palette";
 import SearchBar from "../components/searchBar";
 
@@ -32,7 +31,27 @@ const Home = () => {
   return (
     <>
       <h1>Kickoff Color Picker</h1>
-      <PaletteForm refreshPalettes={refreshPalettes} />
+      <Palette
+        isPaletteInDatabase={false}
+        refreshPalettes={refreshPalettes}
+        id={-1}
+        name=""
+        red1={0}
+        green1={0}
+        blue1={0}
+        red2={0}
+        green2={0}
+        blue2={0}
+        red3={0}
+        green3={0}
+        blue3={0}
+        red4={0}
+        green4={0}
+        blue4={0}
+        red5={0}
+        green5={0}
+        blue5={0}
+      />
       <SearchBar refreshPalettes={refreshPalettes} />
       {palettes.map(
         ({
@@ -55,6 +74,7 @@ const Home = () => {
           blue5,
         }) => (
           <Palette
+            isPaletteInDatabase={true}
             key={id}
             refreshPalettes={refreshPalettes}
             id={id}

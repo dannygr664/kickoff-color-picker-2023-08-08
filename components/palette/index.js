@@ -9,6 +9,7 @@ import ColorPicker from "../colorPicker";
 import s from "./styles.module.css";
 
 const Palette = ({
+  isPaletteInDatabase,
   refreshPalettes,
   id,
   name,
@@ -28,7 +29,7 @@ const Palette = ({
   green5,
   blue5,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(!isPaletteInDatabase);
 
   const colorPickerPropNames = [
     {
@@ -86,6 +87,16 @@ const Palette = ({
     blue5: colorComponentNumberSchema,
   });
 
+  const addPalette = async (values) => {
+    if (!values) return;
+
+    const { status, data } = await axios.post("/api/palette", values);
+
+    if (status == 201) {
+      refreshPalettes();
+    }
+  };
+
   const updatePalette = async (values) => {
     setIsEditing(false);
 
@@ -130,14 +141,18 @@ const Palette = ({
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        updatePalette(values);
+        if (isPaletteInDatabase) {
+          updatePalette(values);
+        } else {
+          addPalette(values);
+        }
       }}
     >
       {({ values }) => (
         <Form className={s.formContainer}>
-          <div className={s.formInputsContainer}>
-            {isEditing && <FormikNameField name="name" />}
-            {!isEditing && <h3>{name}</h3>}
+          {isEditing && <FormikNameField name="name" />}
+          {!isEditing && <h3>{name}</h3>}
+          <div className={s.formColorPickersAndButtonsContainer}>
             <div className={s.formColorPickersContainer}>
               {colorPickerPropNames.map((propNames, index) => (
                 <ColorPicker
@@ -150,18 +165,22 @@ const Palette = ({
                 />
               ))}
             </div>
+            {isEditing && (
+              <button type="submit">
+                {isPaletteInDatabase ? "UPDATE" : "ADD"}
+              </button>
+            )}
+            {!isEditing && (
+              <>
+                <button type="button" onClick={() => setIsEditing(true)}>
+                  EDIT
+                </button>
+                <button type="button" onClick={() => deletePalette()}>
+                  DELETE
+                </button>
+              </>
+            )}
           </div>
-          {isEditing && <button type="submit">UPDATE</button>}
-          {!isEditing && (
-            <button type="button" onClick={() => setIsEditing(true)}>
-              EDIT
-            </button>
-          )}
-          {!isEditing && (
-            <button type="button" onClick={() => deletePalette()}>
-              DELETE
-            </button>
-          )}
         </Form>
       )}
     </Formik>

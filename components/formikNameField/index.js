@@ -1,15 +1,17 @@
 import { useField } from "formik";
 
+import ErrorMessage from "../errorMessage";
+
 import s from "./styles.module.css";
 
 function FormikNameField({ ...props }) {
   const [field, meta] = useField(props);
   return (
     <div className={s.inputFieldContainer}>
-      <label>Name</label>
+      <label className={s.label}>Name</label>
       <input className={s.input} {...field} {...props} />
       {meta.touched && meta.error ? (
-        <p className={s.errorMessage}>{meta.error}</p>
+        <ErrorMessage message={meta.error} />
       ) : null}
     </div>
   );
