@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import Header from "../components/header";
 import Palette from "../components/palette";
 import SearchBar from "../components/searchBar";
 
@@ -30,7 +31,7 @@ const Home = () => {
 
   return (
     <>
-      <h1>Kickoff Color Picker</h1>
+      <Header />
       <Palette
         isPaletteInDatabase={false}
         refreshPalettes={refreshPalettes}

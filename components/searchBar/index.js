@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import s from "./styles.module.css";
 
-function SearchBar({ refreshPalettes }) {
+const SearchBar = ({ refreshPalettes }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -19,9 +19,11 @@ function SearchBar({ refreshPalettes }) {
         placeholder="Search..."
         onChange={(event) => setSearchQuery(event.target.value)}
       />
-      <button type="submit">Search</button>
+      <button className={s.button} type="submit">
+        Search
+      </button>
     </form>
   );
-}
+};
 
 export default SearchBar;

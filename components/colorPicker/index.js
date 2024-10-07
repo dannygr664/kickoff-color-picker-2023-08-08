@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import FormikInputField from "../formikInputField";
+import FormikColorComponentInputField from "../formikColorComponentInputField";
 
 import s from "./styles.module.css";
 
@@ -41,17 +41,17 @@ const ColorPicker = ({
     <div className={s.colorPickerContainer} style={{ backgroundColor }}>
       {isEditing && (
         <>
-          <FormikInputField
+          <FormikColorComponentInputField
             name={redFieldName}
             value={formValues[redFieldName]}
             placeholder="R"
           />
-          <FormikInputField
+          <FormikColorComponentInputField
             name={greenFieldName}
             value={formValues[greenFieldName]}
             placeholder="G"
           />
-          <FormikInputField
+          <FormikColorComponentInputField
             name={blueFieldName}
             value={formValues[blueFieldName]}
             placeholder="B"

@@ -151,7 +151,7 @@ const Palette = ({
       {({ values }) => (
         <Form className={s.formContainer}>
           {isEditing && <FormikNameField name="name" />}
-          {!isEditing && <h3>{name}</h3>}
+          {!isEditing && <h3 className={s.name}>{name}</h3>}
           <div className={s.formColorPickersAndButtonsContainer}>
             <div className={s.formColorPickersContainer}>
               {colorPickerPropNames.map((propNames, index) => (
@@ -166,17 +166,25 @@ const Palette = ({
               ))}
             </div>
             {isEditing && (
-              <button type="submit">
-                {isPaletteInDatabase ? "UPDATE" : "ADD"}
+              <button className={s.button} type="submit">
+                {isPaletteInDatabase ? "Update" : "Add"}
               </button>
             )}
             {!isEditing && (
               <>
-                <button type="button" onClick={() => setIsEditing(true)}>
-                  EDIT
+                <button
+                  className={s.button}
+                  type="button"
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit
                 </button>
-                <button type="button" onClick={() => deletePalette()}>
-                  DELETE
+                <button
+                  className={s.button}
+                  type="button"
+                  onClick={() => deletePalette()}
+                >
+                  Delete
                 </button>
               </>
             )}

@@ -4,7 +4,7 @@ import ErrorMessage from "../errorMessage";
 
 import s from "./styles.module.css";
 
-function FormikInputField({ ...props }) {
+const FormikColorComponentInputField = ({ ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div className={s.inputFieldContainer}>
@@ -15,6 +15,6 @@ function FormikInputField({ ...props }) {
       ) : null}
     </div>
   );
-}
+};
 
-export default FormikInputField;
+export default FormikColorComponentInputField;
