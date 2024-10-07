@@ -1,0 +1,8 @@
+.colorPickerContainer {
+  width: 20%;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  border: black solid 1px;
+  border-radius: 5px;
+}
