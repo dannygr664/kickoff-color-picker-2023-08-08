@@ -3,12 +3,15 @@ import axios from "axios";
 
 import PaletteForm from "../components/paletteForm";
 import Palette from "../components/palette";
+import SearchBar from "../components/searchBar";
 
 const Home = () => {
   const [palettes, setPalettes] = useState([]);
 
-  const refreshPalettes = async () => {
-    const { status, data } = await axios.get("/api/palette");
+  const refreshPalettes = async (searchQuery = "") => {
+    const params = searchQuery ? { searchQuery } : {};
+
+    const { status, data } = await axios.get("/api/palette", { params });
 
     if (status == 200) {
       setPalettes(data);
@@ -30,6 +33,7 @@ const Home = () => {
     <>
       <h1>Kickoff Color Picker</h1>
       <PaletteForm refreshPalettes={refreshPalettes} />
+      <SearchBar refreshPalettes={refreshPalettes} />
       {palettes.map(
         ({
           id,
