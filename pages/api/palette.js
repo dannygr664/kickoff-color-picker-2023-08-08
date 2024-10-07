@@ -3,9 +3,10 @@ import knex from "../../clients/knex";
 export default async (req, res) => {
   if (req.method === "GET") {
     const palettes = req.query.searchQuery
-      ? await knex("palettes").whereRaw("name like '%??%'", [
-          req.query.searchQuery,
-        ])
+      ? await knex("palettes").whereLike(
+          "name",
+          "%" + req.query.searchQuery.replaceAll("%", "\\%") + "%"
+        )
       : await knex("palettes");
 
     res.status(200).json(palettes);
